@@ -7,8 +7,27 @@
             HashTable<string> hashTable = new HashTable<string>(50);
 
             hashTable.Set("Hello", "World");
+            hashTable.Set("Bonjour", "Monde");
+            hashTable.Set("Hola", "Mundo");
+            hashTable.Set("Hallo", "Welt");
 
+            Console.WriteLine("Get and Set:");
+            
             Console.WriteLine(hashTable.Get("Hello"));
+            Console.WriteLine(hashTable.Get("Bonjour"));
+            Console.WriteLine(hashTable.Get("Hola"));
+            Console.WriteLine(hashTable.Get("Hallo"));
+
+            Console.WriteLine();
+            Console.WriteLine("keys:");
+
+            List<string> keys = hashTable.keys();
+
+            foreach(string key in keys)
+            {
+                Console.WriteLine(key);
+            }
+
             Console.ReadKey();
         }
     }
@@ -81,6 +100,25 @@
             }
 
             throw new Exception("Key doesn't exist in the hashtable");
+        }
+
+        public List<string> keys()
+        {
+            List<string> keys = new List<string>();
+
+            for(int i = 0; i < data.Length; i++)
+            {
+                List<KeyValue> bucket = data[i];
+
+                if (bucket == null) continue;
+
+                foreach(KeyValue keyValue in bucket)
+                {
+                    keys.Add(keyValue.Key);
+                }
+            }
+
+            return keys;
         }
 
         private class KeyValue
