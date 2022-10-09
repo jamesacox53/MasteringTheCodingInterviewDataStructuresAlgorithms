@@ -28,6 +28,13 @@
             linkedList.Insert(7, 1);
 
             Console.WriteLine(linkedList.ToString());
+            Console.WriteLine();
+
+            Console.WriteLine("Reverse:");
+            
+            linkedList.Reverse();
+            
+            Console.WriteLine(linkedList.ToString());
 
             Console.ReadKey();
         }
@@ -111,6 +118,27 @@
             return this;
         }
 
+        public void Reverse()
+        {
+            if (Head == null || Head.NextNode == null)
+                return;
+
+            Node<T>? first = Head;
+            Tail = Head;
+            Node<T>? second = first.NextNode;
+
+            while (second != null)
+            {
+                Node<T>? temp = second.NextNode;
+                second.NextNode = first;
+                first = second;
+                second = temp;
+            }
+
+            Head.NextNode = null;
+            Head = first;
+        }
+
         public override string ToString()
         {
             List<string> strings = new List<string>();
@@ -161,6 +189,15 @@
                     return str;
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            string str = GetValueString();
+
+            if (NextNode == null) return str;
+
+            return str + " --> " + NextNode.GetValueString();
         }
     }
 }
