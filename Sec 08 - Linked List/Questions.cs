@@ -19,6 +19,15 @@
             linkedList.Prepend(44);
 
             Console.WriteLine(linkedList.ToString());
+            Console.WriteLine();
+
+            Console.WriteLine("Insert:");
+            linkedList.Insert(0, 12);
+            linkedList.Insert(2, 76);
+            linkedList.Insert(5, 13);
+            linkedList.Insert(7, 1);
+
+            Console.WriteLine(linkedList.ToString());
 
             Console.ReadKey();
         }
@@ -68,6 +77,36 @@
             }
 
             Length++;
+
+            return this;
+        }
+
+        public LinkedList<T> Insert(int index, T value) 
+        {
+            if (Head == null || index <= 0) return this.Prepend(value);
+            if (index >= Length) return this.Append(value);
+
+            Node<T> node = new Node<T>(value, null);
+
+            Node<T>? currNode = Head;
+            int i = 0;
+            
+            while (currNode != null)
+            {
+                Node<T>? nextNode = currNode.NextNode;
+                i++;
+                
+                if (index != i)
+                {
+                    currNode = nextNode;
+                    continue;
+                }
+
+                currNode.NextNode = node;
+                node.NextNode = nextNode;
+                Length++;
+                break;
+            }
 
             return this;
         }
